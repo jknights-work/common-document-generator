@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+  File      : DocumentDefinition.hbm.xml
+  Author    : cmartin
+  Copyright : Martin Technical Consulting Limited Ltd (2018)
+  Created   : 21-Jan-2018
+
+  History
+    21-Jan-2018 cmartin The initial version.
+-->
+<hibernate-mapping>
+  <class name="com.willow.common.document.generator.model.impl.DocumentDefinitionImpl"
+         table="DocumentDefinition"
+         dynamic-insert="false" dynamic-update="false"
+         mutable="true" optimistic-lock="version"
+         polymorphism="implicit" select-before-update="false" lazy="false">
+    <id access="field" name="id">
+      <generator class="native"/>
+    </id>
+
+    <natural-id>
+      <property name="businessUnitId" access="field"/>
+      <property name="documentId" access="field"/>
+    </natural-id>
+
+    <property name="name" access="field"/>
+    <property name="documentGeneratorId" access="field"/>
+    <map access="field" name="attributes" table="DocumentDefinition_attributes" lazy="false" cascade="all-delete-orphan">
+      <key column="gkey"/>
+      <map-key column="name" type="string"/>
+      <element column="definition" type="string"/>
+    </map>
+
+    <property name="recordState" access="field"/>
+  </class>
+</hibernate-mapping>
+
